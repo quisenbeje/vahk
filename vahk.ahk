@@ -7,6 +7,7 @@
 #UseHook Off          ; Hotkeys will be implemented by the default method
 SetBatchLines -1      ; script never sleeps (affects cpu utilization)
 ListLines Off         ; omits subsequently executed lines from history
+SendMode Input        ; best setting for send command
 
 ; if script is running as an .exe and the icon file exists; set tray icon
 If( !A_IsCompiled && FileExist(A_ScriptDir . "\vahk.ico")) {
@@ -21,11 +22,20 @@ Menu, tray, add, &Reload This Script, MyReload
 Menu, tray, add, ListHotkeys Debug, MyListHotkeys
 ;Menu, tray, add, &Edit This Script, MyEdit
 Menu, tray, add ; separator
-Menu, Tray, Add, E&xit, QuitScript
+Menu, Tray, Add, &Exit, QuitScript
+
+Hotkey, f9, MyReload
+
+array := {"6": "j", "+6": "jj", "9": "k", "^9": "kk"}
+For key, value in array
+	Hotkey, %key%, newsend
 
 Disabled := 0
 mode := 0 
 toggle_vi_mode()
+
+nmap("q","j")
+
 
 Return ;end of auto-execute
 ;---------------------------------------------------------------
@@ -183,10 +193,28 @@ Return
 ;    Edit
 ;Return
 
+nmap(in, arg*)
+{
+	;Hotkey, mode = "normal"
+	Static funs := {}, args := {}
+	funs[in] := Func("sendit"), args[in] := arg
+	msgbox initial mapping of %in%
+	Hotkey, %in%, nmysend
+	return
+
+nmysend:
+	funs[A_ThisHotKey].(args[A_ThisHotkey]*)
+	return
+}
+
+sendit(msg) {
+	msgbox s nmap
+    sendinput % msg
+}
 
 toggle_vi_mode()
 {
-global
+	global
 	If (!vi_keys)
 	{
 		IfWinNotExist, vi_status
@@ -205,9 +233,10 @@ global
 
 create_vi_status_bar()
 {
+	ypos := (A_ScreenHeight) - 120
 	Gui, +AlwaysOnTop +Disabled -SysMenu +Owner +Border
-	Gui,Show,X0 Y1100 w100 h100 NoActivate,vi_status
- 	Gui,Add,Picture,x5 y5 w90 h90, C:\cygwin\home\jquis\vahk3.png
+	Gui,Show,X0 Y%ypos% w100 h100 NoActivate,vi_status
+ 	Gui,Add,Picture,x5 y5 w90 h90, %A_ScriptDir%\vahk3.png
 	Gui, Color, 141413
 	WinSet, Transparent, 230, vi_status
 	Gui -Caption
@@ -252,6 +281,49 @@ update_vi_status_bar(clr)
 	*}::Send,^{down}
 	*^f::Send,{PgDn}
 	*^b::Send,{PgUp}
+	+f::
+		premode=%mode%
+		mode:="insert"
+		;update_vi_status_bar("005FFF")
+		input,fd,L1 I *,,*
+		Send,^f
+		sleep, 40
+		sendplay,{%fd%}{enter}+{tab}{enter}{esc}{left}
+		mode = %premode%
+		update_vi_status_bar("AEEE00")
+		return
+	f::
+		premode=%mode%
+		mode:="insert"
+		;update_vi_status_bar("005FFF")
+		input,fd,L1 I *,,*
+		Send,^f
+		sleep, 40
+		sendplay,{%fd%}{enter}{esc}{right}
+		mode = %premode%
+		;mode := "normal"
+		update_vi_status_bar("AEEE00")
+		return
+	t::
+		premode=%mode%
+		mode:="insert"
+		;update_vi_status_bar("005FFF")
+		input,fd,L1 I *,,*
+		Send,^f
+		sleep, 40
+		sendplay,{%fd%}{enter}{esc}{left}
+		mode = %premode%
+		;mode := "normal"
+		update_vi_status_bar("AEEE00")
+		return
+	+.::
+		if (A_PriorHotkey = "+." and A_TimeSincePriorHotkey < 400)
+			Send,{tab}
+		return
+	+,::
+		if (A_PriorHotkey = "+," and A_TimeSincePriorHotkey < 400)
+			Send,+{tab}
+		return
 
 ; copy paste
 	*x::send,{shift up}{del}
@@ -274,6 +346,8 @@ update_vi_status_bar(clr)
 		return
 
 #if (mode = "normal")
+	;^o::send,+{f5}
+	^i::send,+{f5 3}
 	*o::
 		if (GetKeyState("Shift","P"))
 			Send,{home}{Enter}{up}
@@ -304,6 +378,21 @@ update_vi_status_bar(clr)
 		mode:="insert"
 		update_vi_status_bar("005FFF")
 		return
+	+i::
+		send,{home}
+		mode:="insert"
+		update_vi_status_bar("005FFF")
+		return
+	+a::
+		send,{end}
+		mode:="insert"
+		update_vi_status_bar("005FFF")
+		return
+	a::
+		send, {right}
+		mode:="insert"
+		update_vi_status_bar("005FFF")
+		return
 	+r::
 		mode:="replace"
 		update_vi_status_bar("FF9EB8")
@@ -316,9 +405,15 @@ update_vi_status_bar(clr)
 		return
 	u::Send,{ctrl down}z{ctrl up}
 	^r::Send,{ctrl down}y{ctrl up}
-	^[::
-		Send,{Esc}
+	^[:: Send,{Esc}
+	+/::
+	/::
+		Send,^f
+		mode:="insert"
+		update_vi_status_bar("005FFF")
 		return
+	+8::send ^{right}{shift down}^{left}{shift up}^c^f^v{left}{enter 2}
+	+3::send ^{right}{shift down}^{left}{shift up}^c^f^v{left}{enter}+{tab}{enter}
 	; Switch to previous Z-order window
 	*;::
 		if (A_PriorHotkey <> "*;" or A_TimeSincePriorHotkey > 400)
@@ -405,6 +500,7 @@ update_vi_status_bar(clr)
 	*i::return
 
 ;#if
+#if
 
 ESCAPE:
 	if ((mode = "visual") && GetKeyState("Control","P"))
@@ -416,3 +512,4 @@ ESCAPE:
 	mode := "normal"
 	update_vi_status_bar("AEEE00")
 return
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="vahk3.svg"
+   inkscape:export-filename="C:\cygwin\home\jquis\vahk3.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.32"
+     inkscape:cx="82.481072"
+     inkscape:cy="998.86586"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="912"
+     inkscape:window-height="846"
+     inkscape:window-x="40"
+     inkscape:window-y="60"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ff9eb8;fill-opacity:1"
+       d="M 42.690864,-39.637817 C 19.479716,-38.461128 0.91492389,-19.719358 0,3.5599352 l 9.0675846,0 C 9.9880767,-14.886625 24.70134,-29.747975 43.141427,-30.682802 c 0.01862,-9e-4 0.03768,9e-4 0.05632,0 l 0,-8.955015 c -0.168961,0 -0.338409,0 -0.506884,0 z"
+       id="path3782"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\cygwin\home\jquis\vahk3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aeee00;fill-opacity:1"
+       d="m 46.802253,-39.637817 0,9.011245 c 18.46547,0.907794 33.20785,15.725709 34.130162,34.1865072 l 9.067585,0 C 89.072113,-19.881561 70.244723,-38.7102 46.802253,-39.637817 z"
+       id="path3780"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\cygwin\home\jquis\vahk3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#005fff;fill-opacity:1"
+       d="M 0,7.1644335 C 0.92788623,30.605927 19.755277,49.434385 43.197747,50.362183 l 0,-9.011246 C 24.732277,40.442964 9.9898956,25.625232 9.0675846,7.1644335 L 0,7.1644335 z"
+       id="path3778"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\cygwin\home\jquis\vahk3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffa724;fill-opacity:1"
+       d="M 80.932415,7.1644335 C 80.010103,25.625232 65.267723,40.442964 46.802253,41.350937 l 0,9.011246 C 70.244723,49.434385 89.072113,30.605927 90,7.1644335 l -9.067585,0 z"
+       id="path2991"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\cygwin\home\jquis\vahk3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:109.39411926px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bodoni MT;-inkscape-font-specification:Bodoni MT Bold Italic"
+       x="14.368159"
+       y="28.822651"
+       id="text3784"
+       sodipodi:linespacing="125%"
+       transform="scale(1.044598,0.95730607)"
+       inkscape:export-filename="C:\cygwin\home\jquis\vahk3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan3786"
+         x="14.368159"
+         y="28.822651">v</tspan></text>
+  </g>
+</svg>
