@@ -26,15 +26,16 @@ Menu, Tray, Add, &Exit, QuitScript
 
 Hotkey, f9, MyReload
 
-array := {"6": "j", "+6": "jj", "9": "k", "^9": "kk"}
-For key, value in array
-	Hotkey, %key%, newsend
+;array := {"6": "j", "+6": "jj", "9": "k", "^9": "kk"}
+;For key, value in array
+	;Hotkey, %key%, newsend
 
 Disabled := 0
 mode := 0 
 toggle_vi_mode()
 
-nmap("q","j")
+;doesn't work on multiple keys
+;nmap("q","j")
 
 
 Return ;end of auto-execute
