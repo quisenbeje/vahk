@@ -1,5 +1,5 @@
 # vahk
-vi key mapping for os using a autohotkey script
+vi key mapping for os using a autohotkey script. created originally for making microsoft word act like vi, but also functional for whatever other apps you are using.
 
 it's a bit rough at the moment, but functional.
   - #v - (win+v) to toggle vi key bindings
