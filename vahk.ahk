@@ -35,7 +35,7 @@ mode := 0
 toggle_vi_mode()
 
 ;doesn't work on multiple keys
-;nmap("q","j")
+nmap("q","j")
 
 
 Return ;end of auto-execute
