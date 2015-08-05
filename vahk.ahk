@@ -34,8 +34,8 @@ Disabled := 0
 mode := 0 
 toggle_vi_mode()
 
-;doesn't work on multiple keys
-nmap("q","j")
+;doesn't work mapping multiple keys
+nmap("^q","jj{left}{left}")
 
 
 Return ;end of auto-execute
@@ -210,7 +210,7 @@ nmysend:
 
 sendit(msg) {
 	msgbox s nmap
-    sendinput % msg
+    sendplay, %msg%
 }
 
 toggle_vi_mode()
@@ -246,6 +246,33 @@ create_vi_status_bar()
 update_vi_status_bar(clr)
 {
 	Gui, Color, %clr%
+}
+
+set_mode(md)
+{
+	global
+	mode := md
+	if(md="normal")
+	{
+		update_vi_status_bar("AEEE00")
+	}
+	else if(md="visual")
+	{
+		update_vi_status_bar("FFA724")
+	}
+	else if(md="insert")
+	{
+		update_vi_status_bar("005FFF")
+	}
+	else if(md="replace")
+	{
+		update_vi_status_bar("FF9EB8")
+	}
+	else
+	{
+		mode := 0
+		update_vi_status_bar("242321")
+	}
 }
 
 #if ((mode = "normal") or (mode = "visual"))
@@ -347,6 +374,57 @@ update_vi_status_bar(clr)
 		return
 
 #if (mode = "normal")
+	m::
+		premode=%mode%
+		mode:="insert"
+		;update_vi_status_bar("005FFF")
+		input,fd,L1 I *,,*
+		Send,^+{f5}
+		sleep, 40
+		sendplay,{%fd%}!a
+		mode = %premode%
+		;mode := "normal"
+		update_vi_status_bar("AEEE00")
+		return
+	`;::
+		premode=%mode%
+		mode:="insert"
+		;update_vi_status_bar("005FFF")
+		input,fd,L1 I *,,*
+		Send,^+{f5}
+		sleep, 40
+		sendplay,{%fd%}!g{Enter}
+		mode = %premode%
+		;mode := "normal"
+		update_vi_status_bar("AEEE00")
+		return
+	?::
+		premode=%mode%
+		mode:=0
+		first:=TRUE
+		;update_vi_status_bar("005FFF")
+		loop {
+			input,fd,L1 I *,,*
+			if (fd = "[")
+				break
+			Send,^h
+			sleep, 50
+			Send,!d
+			sleep, 50
+			if (first) {
+				send,{del}
+				first:=FALSE
+			}
+			Sendplay, {right}{%fd%}{Enter}
+			sleep, 50
+			Sendplay, {esc}
+			sleep, 50
+			Sendplay, ^{PgUp}
+		}
+		mode = %premode%
+		;mode := "normal"
+		update_vi_status_bar("AEEE00")
+		return
 	;^o::send,+{f5}
 	^i::send,+{f5 3}
 	*o::
@@ -354,8 +432,9 @@ update_vi_status_bar(clr)
 			Send,{home}{Enter}{up}
 		else
 			Send,{end}{Enter}
-		mode:="insert"
-		update_vi_status_bar("005FFF")
+		;mode:="insert"
+		;update_vi_status_bar("005FFF")
+		set_mode("insert")
 		return
 	i::
 		if (A_PriorHotkey = "y" and A_TimeSincePriorHotkey < 400)
@@ -376,32 +455,38 @@ update_vi_status_bar(clr)
 			Send,^{left}{shift down}
 			return
 		}
-		mode:="insert"
-		update_vi_status_bar("005FFF")
+		;mode:="insert"
+		;update_vi_status_bar("005FFF")
+		set_mode("insert")
 		return
 	+i::
 		send,{home}
-		mode:="insert"
-		update_vi_status_bar("005FFF")
+		;mode:="insert"
+		;update_vi_status_bar("005FFF")
+		set_mode("insert")
 		return
 	+a::
 		send,{end}
-		mode:="insert"
-		update_vi_status_bar("005FFF")
+		;mode:="insert"
+		;update_vi_status_bar("005FFF")
+		set_mode("insert")
 		return
 	a::
 		send, {right}
-		mode:="insert"
-		update_vi_status_bar("005FFF")
+		;mode:="insert"
+		;update_vi_status_bar("005FFF")
+		set_mode("insert")
 		return
 	+r::
-		mode:="replace"
-		update_vi_status_bar("FF9EB8")
+		;mode:="replace"
+		;update_vi_status_bar("FF9EB8")
+		set_mode("replace")
 		Send,{Insert}
 		return
 	v::
-		mode:="visual"
-		update_vi_status_bar("FFA724")
+		;mode:="visual"
+		;update_vi_status_bar("FFA724")
+		set_mode("visual")
 		Send,{shift down}
 		return
 	u::Send,{ctrl down}z{ctrl up}
